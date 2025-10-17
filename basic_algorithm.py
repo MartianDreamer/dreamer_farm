@@ -49,8 +49,6 @@ def init_2_dimensional_array(x, y, init_value = 0):
 	return arr
 
 def reduce(arr, bifunction, initial_value = None):
-	quick_print(arr)
-	quick_print(initial_value)
 	if len(arr) == 0:
 		return None
 	elif len(arr) == 1:
@@ -61,7 +59,6 @@ def reduce(arr, bifunction, initial_value = None):
 	elif initial_value != None:
 		rs = initial_value
 		for e in arr:
-			quick_print(e)
 			rs = bifunction(rs, e)
 		return rs
 	else:

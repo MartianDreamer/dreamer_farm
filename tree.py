@@ -7,10 +7,10 @@ def plant_tree(width, height):
 	plantable_map = init_2_dimensional_array(h_size, v_size, True)
 	def check_and_plant():
 		cur_x, cur_y = get_pos_x() - start_x, get_pos_y() - start_y
-		left = cur_x - 1 - start_x
-		right = cur_x + 1 - start_x
-		up = cur_y + 1 - start_y
-		down = cur_y - 1 - start_y
+		left = cur_x - 1
+		right = cur_x + 1
+		up = cur_y + 1
+		down = cur_y - 1
 		if (left < 0 or plantable_map[cur_y][left]) and (right >= h_size or plantable_map[cur_y][right]) and (down < 0 or plantable_map[down][cur_x]) and (up >= v_size or plantable_map[up][cur_x]):
 			plant(Entities.Tree)
 			plantable_map[cur_y][cur_x] = False

@@ -57,70 +57,6 @@ def move_to(x, y):
 		move(v_direction)
 				
 
-def sort_on_field(l, direction, ord):
-	for i in range(l):
-		did_swap = False
-		for _ in range(l - i):
-			cur_val = measure()
-			next_val = measure(direction)
-			if ord(cur_val, next_val) > 0:
-				did_swap = swap(direction)	
-			move(direction)
-		if not did_swap:
-			break
-		for _ in range(l - i):
-			move(REVERSED_DIRECTION[direction])
-
-def go_to_unplanted_corner():
-	pos = where_is_in_unplanted_rectangle()
-	rs_h_dir, rs_v_dir = CORNER_DIRECTION[pos]
-	h_dir, v_dir = REVERSED_DIRECTION[rs_h_dir], REVERSED_DIRECTION[rs_v_dir]
-	while pos <= CORNER_DOWN_MID and get_entity_type() == None:
-		move(h_dir)
-	if get_entity_type() != None:
-		move(rs_h_dir)
-	while pos in [CORNER_MID_MID, CORNER_MID_LEFT, CORNER_MID_RIGHT] and get_entity_type() == None:
-		move(v_dir)
-	if get_entity_type() != None:
-		move(rs_v_dir)	
-	return rs_h_dir, rs_v_dir
-
-
-def where_is_in_unplanted_rectangle():
-	if get_entity_type() != None:
-		return None
-	north_type, east_type, west_type, south_type = check_and_back(North), check_and_back(East), None, None # don't check too early if it is at CORNER_UP_RIGHT we can save some checks
-	if north_type != None:
-		if east_type != None:
-			return CORNER_UP_RIGHT
-		west_type = check_and_back(West) # if it is not CORNER_UP_RIGHT check left to know if it is CORNER_UP_LEFT
-		if west_type != None:
-			return CORNER_UP_LEFT
-		return CORNER_UP_MID
-		
-	south_type = check_and_back(South)
-	if south_type != None:
-		if east_type != None:
-			return CORNER_DOWN_RIGHT
-		west_type = check_and_back(West)
-		if west_type != None:
-			return CORNER_DOWN_LEFT
-		return CORNER_DOWN_MID
-		
-	if east_type != None:
-		return CORNER_MID_RIGHT
-	west_type = check_and_back(West)
-	if west_type != None:
-		return CORNER_MID_LEFT
-	return CORNER_MID_MID
-	
-def check_and_back(dir):
-	move(dir)
-	entity_type = get_entity_type()
-	move(REVERSED_DIRECTION[dir])
-	return entity_type
-
-
 def detect_h_dir(dist):
 	if dist < 0:
 		return West
@@ -159,15 +95,6 @@ def wait_for(milisecond):
 	while True:
 		if get_time() - start >= milisecond/1000:
 			return
-
-def calculate_empty_square_size():
-	h_dir, v_dir = go_to_unplanted_corner()
-	size = 0
-	while get_entity_type() == None:
-		size += 1
-		move(h_dir)
-	move(REVERSED_DIRECTION[h_dir])
-	return (size, REVERSED_DIRECTION[h_dir], v_dir)
 	
 def do_n_times(n, cooldown, action):
 	for i in range(n):
