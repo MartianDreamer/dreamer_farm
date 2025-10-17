@@ -7,7 +7,6 @@ def sort_by_2nd_element(a, b):
 
 def plant_sunflower(width, height, water_threshold = 0.75):
 	plant_map = plant_area(width, height, Entities.Sunflower, Grounds.Soil, water_threshold)
-	quick_print(plant_map)
 	sort(plant_map, sort_by_2nd_element)
 
 	def harvest_and_replant_sunflower():
@@ -27,7 +26,6 @@ def plant_sunflower(width, height, water_threshold = 0.75):
 			move_to(x, y)
 			plant_map[i][2] = plant_watering_measure(Entities.Sunflower, Grounds.Soil, water_threshold)
 		sort(plant_map, sort_by_2nd_element)
-		quick_print(plant_map)
 
 	return harvest_and_replant_sunflower
 

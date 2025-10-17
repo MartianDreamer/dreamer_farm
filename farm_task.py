@@ -27,7 +27,6 @@ def plant_watering_measure(tree_type, soil_type, water_threshold = 75):
 	if tree_type != None:
 		plant(tree_type)
 		watering(water_threshold)
-		quick_print(measure())
 		return measure()
 	return -1
 			
