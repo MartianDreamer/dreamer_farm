@@ -1,4 +1,4 @@
-from utils import detect_h_dir, detect_v_dir, REVERSED_DIRECTION
+from utils import detect_h_dir, detect_v_dir, REVERSED_DIRECTION, do_action_on_every_cell
 
 def harvest_and_replant(water_threshold = 0.75):
 	tree_type = get_entity_type()
@@ -18,17 +18,17 @@ def watering(threshold):
 		use_item(Items.Water)
 
 def plant_area(width, height, tree_type, soil_type, water_threshold = 0.75):
-	cur_h_dir, v_direction = detect_h_dir(width), detect_v_dir(height)
-	for i in range(height):
-		for j in range(width):
-			do_soil(soil_type)
-			if tree_type != None:
-				plant(tree_type)
-			watering(water_threshold)
-			if j < width - 1:
-				move(cur_h_dir)
-		cur_h_dir = REVERSED_DIRECTION[cur_h_dir]
-		if i < height - 1:
-			move(v_direction)
-		
+	def action():
+		return plant_watering_measure(tree_type, soil_type, water_threshold)
+	return do_action_on_every_cell(width, height, action)
+
+def plant_watering_measure(tree_type, soil_type, water_threshold = 75):
+	do_soil(soil_type)
+	if tree_type != None:
+		plant(tree_type)
+		watering(water_threshold)
+		quick_print(measure())
+		return measure()
+	return -1
+			
 		

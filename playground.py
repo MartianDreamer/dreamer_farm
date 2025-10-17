@@ -1,8 +1,11 @@
-from utils import move_to, find_max_value
 from farm_task import plant_area
+from cactus import bubble_sort_cactus
+from basic_algorithm import desc
+from utils import move_to
 
 clear()
-plant_area(3, 6, Entities.Sunflower, Grounds.Soil)
 move_to(0, 0)
-x, y = find_max_value(3, 6, measure)
-move_to(x, y)
+plant_area(8, 8, Entities.Cactus, Grounds.Soil)
+bubble_sort_cactus(-8, 8)
+if can_harvest():
+	harvest()

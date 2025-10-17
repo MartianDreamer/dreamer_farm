@@ -14,6 +14,10 @@ CORNER_UP_RIGHT = 6
 CORNER_DOWN_LEFT = 7
 CORNER_DOWN_RIGHT = 8
 
+def directed_move(step, dir):
+	for _ in range(step):
+		move(dir)
+
 def move_to(x, y):
 	x = x % WORLD_SIZE
 	y = y % WORLD_SIZE
@@ -83,9 +87,7 @@ def go_to_unplanted_corner():
 def where_is_in_unplanted_rectangle():
 	if get_entity_type() != None:
 		return None
-	north_type, east_type = check_and_back(North), check_and_back(East)
-	west_type = None # don't check too early if it is at CORNER_UP_RIGHT we can save some checks
-	south_type = None # don't check too early if it is at CORNER_UP_RIGHT we can save some checks
+	north_type, east_type, west_type, south_type = check_and_back(North), check_and_back(East), None, None # don't check too early if it is at CORNER_UP_RIGHT we can save some checks
 	if north_type != None:
 		if east_type != None:
 			return CORNER_UP_RIGHT
@@ -127,26 +129,35 @@ def detect_v_dir(dist):
 		return South
 	return North
 
-def find_max_value(width, height, measure_func):
+def do_action_on_every_cell(width, height, action):
 	h_dir, v_dir = detect_h_dir(width), detect_v_dir(height)
 	cur_x, cur_y = get_pos_x(), get_pos_y()
-	max_x, max_y = cur_x, cur_y
-	max_value = measure_func()
 	abs_width = abs(width)
 	abs_height = abs(height)
+	result = []
 	for i in range(abs_width):
 		for j in range(abs_height):
-			cur_val = measure_func()
-			if max_value < cur_val:
-				max_x, max_y, max_value = cur_x, cur_y, cur_val
+			result.append([cur_x, cur_y, action()])
 			if j < abs_height - 1:
 				move(v_dir)
 				cur_y += DIRECTION_VAL[v_dir]
 		v_dir = REVERSED_DIRECTION[v_dir]
 		if i < abs_width - 1:
 			move(h_dir)
-			cur_x += DIRECTION_VAL[h_dir]
-	return max_x, max_y
-	
-	
-	
+			cur_x += DIRECTION_VAL[h_dir]							
+	return result
+
+def wait_for(milisecond):
+	start = get_time()
+	while True:
+		if get_time() - start >= milisecond/1000:
+			return
+
+def calculate_empty_square_size():
+	h_dir, v_dir = go_to_unplanted_corner()
+	size = 0
+	while get_entity_type() == None:
+		size += 1
+		move(h_dir)
+	move(REVERSED_DIRECTION[h_dir])
+	return (size, REVERSED_DIRECTION[h_dir], v_dir)
