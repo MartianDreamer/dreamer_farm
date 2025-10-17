@@ -47,4 +47,34 @@ def init_2_dimensional_array(x, y, init_value = 0):
 			element.append(init_value)
 		arr.append(element)
 	return arr
-	
+
+def reduce(arr, bifunction, initial_value = None):
+	quick_print(arr)
+	quick_print(initial_value)
+	if len(arr) == 0:
+		return None
+	elif len(arr) == 1:
+		if initial_value != None:
+			return bifunction(initial_value, arr[0])
+		else:
+			return arr[0]
+	elif initial_value != None:
+		rs = initial_value
+		for e in arr:
+			quick_print(e)
+			rs = bifunction(rs, e)
+		return rs
+	else:
+		rs = None
+		for e in arr:
+			if rs == None:
+				rs = e
+			else:
+				rs = bifunction(rs, e)
+		return rs
+
+def map(arr, mapper):
+	rs = []
+	for e in arr:
+		rs.append(mapper(e))
+	return rs
