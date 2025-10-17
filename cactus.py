@@ -48,21 +48,20 @@ def bubble_sort_cactus(width, height):
 			start_x += DIRECTION_VAL[h_dir]
 			move_to(start_x, start_y)
 	
-def plant_cactus(width, height):
+def plant_cactus(width, height, water_threshold = 0.75):
 	start_x, start_y = get_pos_x(), get_pos_y()
-	height_direction = 1
-	if width % 2 == 1:
-		height_direction = -1
-	def plant_and_sort_cactus():
-		plant_area(width, height)
-		bubble_sort_cactus(-width, height * height_direction)
-	plant_and_sort_cactus()
+	def replant():
+		move_to(start_x, start_y)
+		plant_area(width, height, Entities.Cactus, Grounds.Soil, water_threshold)
+	replant()
 	def harvest_and_replant_cactus():
+		move_to(start_x, start_y)
+		bubble_sort_cactus(width, height)
 		move_to(start_x, start_y)
 		harvestables = do_action_on_every_cell(width, height, can_harvest, False)
 		if len(harvestables) != width * height:
 			return False
 		harvest()
-		plant_and_sort_cactus()
+		replant()
 		return True
 	return harvest_and_replant_cactus

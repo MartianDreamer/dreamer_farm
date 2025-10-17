@@ -1,6 +1,7 @@
 from farm_task import plant_area
 from cactus import bubble_sort_cactus
 from basic_algorithm import desc
+from tree import plant_tree
 from utils import move_to
 
 clear()

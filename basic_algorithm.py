@@ -38,3 +38,13 @@ def reverse_bifunction(callback):
 	CALL_BACK_MEM[callback] = reverse_callback
 	CALL_BACK_MEM[reverse_callback] = callback
 	return reverse_callback
+
+def init_2_dimensional_array(x, y, init_value = 0):
+	arr = []
+	for _ in range(y):
+		element = []
+		for _ in range(x):
+			element.append(init_value)
+		arr.append(element)
+	return arr
+	

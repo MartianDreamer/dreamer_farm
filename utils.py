@@ -19,10 +19,12 @@ def directed_move(step, dir):
 		move(dir)
 
 def move_to(x, y):
-	x = x % WORLD_SIZE
-	y = y % WORLD_SIZE
 	cur_x = get_pos_x()
 	cur_y = get_pos_y()
+	if cur_x == x and cur_y == y:
+		return
+	x = x % WORLD_SIZE
+	y = y % WORLD_SIZE
 	
 	x_underflow_dist = x - cur_x
 	x_overflow_dist = WORLD_SIZE - max(cur_x, x) + min(cur_x, x)
@@ -151,6 +153,8 @@ def do_action_on_every_cell(width, height, action, break_condition = None):
 	return result
 
 def wait_for(milisecond):
+	if milisecond == 0:
+		return
 	start = get_time()
 	while True:
 		if get_time() - start >= milisecond/1000:
@@ -164,3 +168,9 @@ def calculate_empty_square_size():
 		move(h_dir)
 	move(REVERSED_DIRECTION[h_dir])
 	return (size, REVERSED_DIRECTION[h_dir], v_dir)
+	
+def do_n_times(n, cooldown, action):
+	for i in range(n):
+		action()
+		if i < n - 1:
+			wait_for(cooldown)
