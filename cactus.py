@@ -1,5 +1,6 @@
-from utils import calculate_empty_square_size, DIRECTION_VAL, REVERSED_DIRECTION, directed_move, move_to, detect_h_dir, detect_v_dir
+from utils import DIRECTION_VAL, REVERSED_DIRECTION, move_to, detect_h_dir, detect_v_dir, do_action_on_every_cell
 from basic_algorithm import reverse_bifunction, desc, asc
+from farm_task import plant_area
 
 def bubble_sort(size, dir, comparator):
 	for i in range(size):
@@ -47,7 +48,21 @@ def bubble_sort_cactus(width, height):
 			start_x += DIRECTION_VAL[h_dir]
 			move_to(start_x, start_y)
 	
-			
-	
-			
-	
+def plant_cactus(width, height):
+	start_x, start_y = get_pos_x(), get_pos_y()
+	height_direction = 1
+	if width % 2 == 1:
+		height_direction = -1
+	def plant_and_sort_cactus():
+		plant_area(width, height)
+		bubble_sort_cactus(-width, height * height_direction)
+	plant_and_sort_cactus()
+	def harvest_and_replant_cactus():
+		move_to(start_x, start_y)
+		harvestables = do_action_on_every_cell(width, height, can_harvest, False)
+		if len(harvestables) != width * height:
+			return False
+		harvest()
+		plant_and_sort_cactus()
+		return True
+	return harvest_and_replant_cactus

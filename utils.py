@@ -53,8 +53,8 @@ def move_to(x, y):
 		move(h_direction)
 	for _ in range(y_dist):
 		move(v_direction)
-
 				
+
 def sort_on_field(l, direction, ord):
 	for i in range(l):
 		did_swap = False
@@ -129,7 +129,7 @@ def detect_v_dir(dist):
 		return South
 	return North
 
-def do_action_on_every_cell(width, height, action):
+def do_action_on_every_cell(width, height, action, break_condition = None):
 	h_dir, v_dir = detect_h_dir(width), detect_v_dir(height)
 	cur_x, cur_y = get_pos_x(), get_pos_y()
 	abs_width = abs(width)
@@ -137,7 +137,10 @@ def do_action_on_every_cell(width, height, action):
 	result = []
 	for i in range(abs_width):
 		for j in range(abs_height):
-			result.append([cur_x, cur_y, action()])
+			action_result = action()
+			if break_condition != None and action_result == break_condition:
+				return result
+			result.append([cur_x, cur_y, action_result])
 			if j < abs_height - 1:
 				move(v_dir)
 				cur_y += DIRECTION_VAL[v_dir]
