@@ -14,7 +14,7 @@ def do_soil(soil_type):
 		till()
 		
 def watering(threshold):
-	if get_water() <= threshold:
+	while get_water() <= threshold:
 		use_item(Items.Water)
 
 def plant_area(width, height, tree_type, soil_type, water_threshold = 0.75):
