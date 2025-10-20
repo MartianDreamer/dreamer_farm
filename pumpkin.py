@@ -1,5 +1,5 @@
-from physical_utils import move_to, DIRECTION_VAL, do_action_on_every_cell, wait_for, do_action_on_list_of_cell
-from farm_utils import plant_area, watering
+from physical_utils import move_to, wait_for, do_action_on_list_of_cell
+from farm_utils import plant_area
 from computing_utils import filter
 
 
@@ -14,14 +14,13 @@ def plant_pumpkin(width, height, wait_time = 200):
 		if total_wait_time < 500:
 			total_wait_time = 500
 		if len(planted_cells) == 0 or len(planted_cells) == width * height:
-			wait_for(wait_time)
+			wait_for(total_wait_time)
 			move_to(start_x, start_y)
 			harvest()
 			planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
 			return True
 		return False
 	return try_harvest
-		
 
 def replant_dead_pumpkin():
 	if get_entity_type() == Entities.Dead_Pumpkin:
