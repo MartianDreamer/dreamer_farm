@@ -7,10 +7,9 @@ def plant_pumpkin(width, height, wait_time = 500):
 	start_x, start_y = get_pos_x(), get_pos_y()
 	planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
 	def try_harvest():
-		global planted_cells
-		dead_pumpkins = do_action_on_list_of_cell(planted_cells, replant_dead_pumpkin)
-		planted_cells = filter(dead_pumpkins, did_replant)
-		if len(planted_cells) == 0 or len(planted_cells) == width * height:
+		global planted_cells 
+		planted_cells = filter(do_action_on_list_of_cell(planted_cells, replant_dead_pumpkin), did_replant)
+		if len(planted_cells) == 0:
 			move_to(start_x, start_y)
 			harvest()
 			planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
