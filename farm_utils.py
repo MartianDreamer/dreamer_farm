@@ -1,4 +1,4 @@
-from utils import detect_h_dir, detect_v_dir, REVERSED_DIRECTION, do_action_on_every_cell
+from physical_utils import detect_h_dir, detect_v_dir, REVERSED_DIRECTION, do_action_on_every_cell
 
 def harvest_and_replant(water_threshold = 0.75):
 	tree_type = get_entity_type()

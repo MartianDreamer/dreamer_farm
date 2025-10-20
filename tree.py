@@ -1,5 +1,5 @@
-from utils import do_action_on_every_cell
-from basic_algorithm import init_2_dimensional_array
+from physical_utils import do_action_on_every_cell
+from computing_utils import init_2_dimensional_array
 
 def plant_tree(width, height):
 	start_x, start_y = get_pos_x(), get_pos_y()

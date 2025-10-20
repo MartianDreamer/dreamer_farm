@@ -75,3 +75,10 @@ def map(arr, mapper):
 	for e in arr:
 		rs.append(mapper(e))
 	return rs
+	
+def filter(arr, predicate):
+	rs = []
+	for e in arr:
+		if predicate(e):
+			rs.append(e)
+	return rs

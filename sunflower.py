@@ -1,6 +1,6 @@
-from utils import detect_h_dir, detect_v_dir, DIRECTION_VAL, do_action_on_every_cell, move_to, wait_for
-from basic_algorithm import sort
-from farm_task import plant_area, plant_watering_measure, harvest_and_replant
+from physical_utils import detect_h_dir, detect_v_dir, DIRECTION_VAL, do_action_on_every_cell, move_to, wait_for
+from computing_utils import sort
+from farm_utils import plant_area, plant_watering_measure, harvest_and_replant
 
 def sort_by_2nd_element(a, b):
 	return b[2] - a[2]

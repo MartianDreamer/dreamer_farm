@@ -1,6 +1,6 @@
-from utils import DIRECTION_VAL, REVERSED_DIRECTION, move_to, detect_h_dir, detect_v_dir, do_action_on_every_cell
-from basic_algorithm import reverse_bifunction, desc, asc
-from farm_task import plant_area
+from physical_utils import DIRECTION_VAL, REVERSED_DIRECTION, move_to, detect_h_dir, detect_v_dir, do_action_on_every_cell
+from computing_utils import reverse_bifunction, desc, asc
+from farm_utils import plant_area
 
 def bubble_sort(size, dir, comparator):
 	for i in range(size):

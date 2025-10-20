@@ -1,20 +1,23 @@
-from utils import move_to, DIRECTION_VAL, do_action_on_every_cell, wait_for
-from farm_task import plant_area, watering
-from basic_algorithm import reduce, map
+from physical_utils import move_to, DIRECTION_VAL, do_action_on_every_cell, wait_for, do_action_on_list_of_cell
+from farm_utils import plant_area, watering
+from computing_utils import filter
 
 
-def plant_pumpkin(width, height, wait_time = 100):
+def plant_pumpkin(width, height, wait_time = 200):
 	start_x, start_y = get_pos_x(), get_pos_y()
-	plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
+	planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
 	def try_harvest():
-		move_to(start_x, start_y)
-		cell_count = do_action_on_every_cell(width, height, replant_dead_pumpkin)
-		did_replant = reduce(map(cell_count, get_3rd_element), no_replant, False)
-		if not did_replant:
+		global planted_cells
+		dead_pumpkins = do_action_on_list_of_cell(planted_cells, replant_dead_pumpkin)
+		planted_cells = filter(dead_pumpkins, did_replant)
+		total_wait_time = len(dead_pumpkins) * wait_time
+		if total_wait_time < 500:
+			total_wait_time = 500
+		if len(planted_cells) == 0 or len(planted_cells) == width * height:
 			wait_for(wait_time)
-			harvest()
 			move_to(start_x, start_y)
-			plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
+			harvest()
+			planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
 			return True
 		return False
 	return try_harvest
@@ -26,8 +29,5 @@ def replant_dead_pumpkin():
 		return True
 	return False
 
-def no_replant(a, b):
-	return a or b
-
-def get_3rd_element(a):
-	return a[2]
+def did_replant(cell):
+	return cell[2]

@@ -76,9 +76,9 @@ def do_action_on_every_cell(width, height, action, break_condition = None):
 	for i in range(abs_width):
 		for j in range(abs_height):
 			action_result = action()
+			result.append([cur_x, cur_y, action_result])
 			if break_condition != None and action_result == break_condition:
 				return result
-			result.append([cur_x, cur_y, action_result])
 			if j < abs_height - 1:
 				move(v_dir)
 				cur_y += DIRECTION_VAL[v_dir]
@@ -101,3 +101,16 @@ def do_n_times(n, cooldown, action):
 		action()
 		if i < n - 1:
 			wait_for(cooldown)
+			
+def do_action_on_list_of_cell(list_of_cells, action, break_condition = None):
+	rs = []
+	for cell in list_of_cells:
+		x, y = cell[0], cell[1]
+		move_to(x, y)
+		action_rs = action()
+		rs.append([x, y, action_rs])
+		if break_condition != None and action_rs == break_condition:
+			return rs
+	return rs
+
+	
