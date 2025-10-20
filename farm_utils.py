@@ -4,7 +4,8 @@ def harvest_and_replant(water_threshold = 0.75):
 	tree_type = get_entity_type()
 	if can_harvest():
 		harvest()
-		plant(tree_type)
+		if tree_type != Entities.Grass:
+			plant(tree_type)
 		watering(water_threshold)
 		return True
 	return False

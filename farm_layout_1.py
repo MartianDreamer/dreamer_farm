@@ -9,13 +9,12 @@ GRASS_HARVEST_THRESHOLD = 10000
 
 
 clear()
-
 # set up pattern
 # plan trees
 move_to(6, 3)
 plant_tree(6, 3)
 move_to(0, 12)
-plant_tree(12, 4)
+plant_tree(16, 4)
 
 
 def harvest_tree1():
@@ -26,14 +25,14 @@ def harvest_tree1():
 
 def harvest_tree2():
 	move_to(0, 12)
-	do_action_on_every_cell(12, 4, harvest_and_replant)
+	do_action_on_every_cell(16, 4, harvest_and_replant)
 	
 # plant carrots
 move_to(12, 0)
-plant_area(4, 16, Entities.Carrot, Grounds.Soil)
+plant_area(4, 8, Entities.Carrot, Grounds.Soil)
 def harvest_carrot():
 	move_to(12, 0)
-	do_action_on_every_cell(4, 16, harvest_and_replant)
+	do_action_on_every_cell(4, 12, harvest_and_replant)
 	
 # plant sunflowers
 move_to(6, 0)
