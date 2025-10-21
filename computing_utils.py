@@ -83,12 +83,13 @@ def filter(arr, predicate):
 			rs.append(e)
 	return rs
 
-def dfs(root, get_neighbours, is_arrival, move_to_neighbour = None, trackback = None):
+def dfs(root, get_neighbours, is_arrival, move_to_neighbour = None, trackback = None, priority_comparator = None):
 	# callback is meant to return to the previous node
 	if is_arrival(root):
 		return [root]
 	neighbours = get_neighbours(root)
-	quick_print(neighbours)
+	if priority_comparator != None:
+		sort(neighbours, priority_comparator)
 	for neighbour in neighbours:
 		if move_to_neighbour != None:
 			move_to_neighbour(neighbour)

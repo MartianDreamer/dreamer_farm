@@ -8,18 +8,34 @@ def init_maze(size):
 	
 def get_neighbours(root):
 	candidates = [North, South, East, West]
-	if root in candidates:
-		candidates.remove(REVERSED_DIRECTION[root])
-	candidates = filter(candidates, can_move)
+	def filter_neighbour(candidate):
+		return can_move(candidate) and (root == None or candidate != REVERSED_DIRECTION[root])
+	candidates = filter(candidates, filter_neighbour)
 	return candidates
 
 def is_arrival(_):
 	return get_entity_type() == Entities.Treasure
-	
-def solve():
-	dfs(None, get_neighbours, is_arrival, move, trackback)
-	harvest()
 
 def trackback(root):
 	move(REVERSED_DIRECTION[root])
 
+def generate_random_comparator():
+	mem = {}
+	def random_comparator(a, b):
+		aval, bval = random(), random()
+		if a in mem:
+			aval = mem[a]
+		else:
+			mem[a] = aval
+		if b in mem:
+			bval = mem[b]
+		else:
+			mem[b] = bval
+		return aval - bval
+	return random_comparator
+	
+
+def solve():
+	dfs(None, get_neighbours, is_arrival, move, trackback, generate_random_comparator())
+	harvest()
+	
