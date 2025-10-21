@@ -83,16 +83,19 @@ def filter(arr, predicate):
 			rs.append(e)
 	return rs
 
-def dfs(root, get_neighbours, is_arrival, callback = None):
+def dfs(root, get_neighbours, is_arrival, move_to_neighbour = None, trackback = None):
+	# callback is meant to return to the previous node
 	if is_arrival(root):
-		callback(root)
 		return [root]
 	neighbours = get_neighbours(root)
+	quick_print(neighbours)
 	for neighbour in neighbours:
-		path = dfs(neighbour, get_neighbours, is_arrival, callback)
+		if move_to_neighbour != None:
+			move_to_neighbour(neighbour)
+		path = dfs(neighbour, get_neighbours, is_arrival, move_to_neighbour, trackback)
 		if len(path) != 0:
 			path.insert(0, root)
-			callback(root)
 			return path
-	callback(root)
+	if trackback != None:
+		trackback(root)
 	return []
