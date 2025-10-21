@@ -15,7 +15,8 @@ def do_soil(soil_type):
 		till()
 		
 def watering(threshold):
-	while get_water() <= threshold:
+	watering_times = (get_water() - threshold / 0.25) // 1
+	for _ in range(watering_times):
 		use_item(Items.Water)
 
 def plant_area(width, height, tree_type, soil_type, water_threshold = 0.75):

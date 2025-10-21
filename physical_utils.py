@@ -55,6 +55,15 @@ def move_to(x, y):
 		move(h_direction)
 	for _ in range(y_dist):
 		move(v_direction)
+
+def in_map_move_to(x, y):
+	cur_x, cur_y = get_pos_x(), get_pos_y()
+	dist_x, dist_y = x - cur_x, y - cur_y
+	h_dir, v_dir = detect_h_dir(dist_x), detect_v_dir(dist_y)
+	for _ in range(abs(dist_x)):
+		move(h_dir)
+	for _ in range(abs(dist_y)):
+		move(v_dir)
 				
 
 def detect_h_dir(dist):
@@ -112,5 +121,3 @@ def do_action_on_list_of_cell(list_of_cells, action, break_condition = None):
 		if break_condition != None and action_rs == break_condition:
 			return rs
 	return rs
-
-	

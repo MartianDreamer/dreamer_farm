@@ -82,3 +82,17 @@ def filter(arr, predicate):
 		if predicate(e):
 			rs.append(e)
 	return rs
+
+def dfs(root, get_neighbours, is_arrival, callback = None):
+	if is_arrival(root):
+		callback(root)
+		return [root]
+	neighbours = get_neighbours(root)
+	for neighbour in neighbours:
+		path = dfs(neighbour, get_neighbours, is_arrival, callback)
+		if len(path) != 0:
+			path.insert(0, root)
+			callback(root)
+			return path
+	callback(root)
+	return []
