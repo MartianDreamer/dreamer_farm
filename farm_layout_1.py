@@ -1,4 +1,4 @@
-from physical_utils import move_to, WORLD_SIZE, do_action_on_every_cell, wait_for, do_n_times
+from physical_utils import move_to, WORLD_SIZE, do_action_on_every_cell, block_for, do_n_times
 from pumpkin import plant_pumpkin
 from cactus import plant_cactus
 from sunflower import plant_sunflower
@@ -65,7 +65,7 @@ while True:
 	
 	
 	while not harverst_cactus() and attempt < 3:
-		wait_for(100)
+		block_for(100)
 		attempt += 1
 	attempt = 0 
 	

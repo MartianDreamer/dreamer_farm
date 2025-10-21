@@ -97,7 +97,7 @@ def do_action_on_every_cell(width, height, action, break_condition = None):
 			cur_x += DIRECTION_VAL[h_dir]							
 	return result
 
-def wait_for(milisecond):
+def block_for(milisecond):
 	if milisecond == 0:
 		return
 	start = get_time()
@@ -109,7 +109,7 @@ def do_n_times(n, cooldown, action):
 	for i in range(n):
 		action()
 		if i < n - 1:
-			wait_for(cooldown)
+			block_for(cooldown)
 			
 def do_action_on_list_of_cell(list_of_cells, action, break_condition = None):
 	rs = []

@@ -1,4 +1,4 @@
-from physical_utils import move_to, wait_for, do_action_on_list_of_cell
+from physical_utils import move_to, block_for, do_action_on_list_of_cell
 from farm_utils import plant_area
 from computing_utils import filter
 
@@ -15,7 +15,7 @@ def plant_pumpkin(width, height, wait_time = 500):
 			planted_cells = plant_area(width, height, Entities.Pumpkin, Grounds.Soil)
 			return True
 		else:
-			wait_for(wait_time)
+			block_for(wait_time)
 		return False
 	return try_harvest
 

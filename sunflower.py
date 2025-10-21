@@ -1,4 +1,4 @@
-from physical_utils import detect_h_dir, detect_v_dir, DIRECTION_VAL, do_action_on_every_cell, move_to, wait_for
+from physical_utils import detect_h_dir, detect_v_dir, DIRECTION_VAL, do_action_on_every_cell, move_to, block_for
 from computing_utils import sort
 from farm_utils import plant_area, plant_watering_measure, harvest_and_replant
 
@@ -18,7 +18,7 @@ def plant_sunflower(width, height, water_threshold = 0.75):
 			else:
 				move_to(x, y)
 				if not can_harvest():
-					wait_for(200)
+					block_for(200)
 				harvest()
 				count += 1
 		for i in range(count):
