@@ -2,21 +2,7 @@ REVERSED_DIRECTION = {North: South, South: North, East: West, West: East}
 DIRECTION_VAL = {North: 1, South: -1, East: 1, West: -1}
 # REVERSED_ORD = {asc_ord: desc_ord, desc_ord: asc_ord}
 WORLD_SIZE = get_world_size()
-CORNER_DIRECTION = [(East, North), (East, South), (East, North), (East, North), (West, North), (East, South), (West, South), (East, North), (West, North)]
 
-CORNER_MID_MID = 0
-CORNER_UP_MID = 1
-CORNER_DOWN_MID = 2
-CORNER_MID_LEFT = 3
-CORNER_MID_RIGHT = 4
-CORNER_UP_LEFT = 5
-CORNER_UP_RIGHT = 6
-CORNER_DOWN_LEFT = 7
-CORNER_DOWN_RIGHT = 8
-
-def directed_move(step, dir):
-	for _ in range(step):
-		move(dir)
 
 def move_to(x, y):
 	cur_x = get_pos_x()
